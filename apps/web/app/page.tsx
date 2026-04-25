@@ -5,7 +5,7 @@ const styles = [
   { id: "neon-green", name: "Neon Green", tone: "black + green", accent: "#39ff88" },
   { id: "neon-blue", name: "Neon Blue", tone: "black + blue", accent: "#38bdf8" },
   { id: "classic", name: "Classic", tone: "bright + editorial", accent: "#1d4ed8" },
-  { id: "clinical", name: "Clinical Glass", tone: "my suggestion", accent: "#14b8a6" },
+  { id: "clinical", name: "Clinical Glass", tone: "other", accent: "#14b8a6" },
 ] as const;
 
 const sponsors = [
