@@ -7,6 +7,7 @@ import { keccak256, toBytes } from "viem";
 import { useMintINFT } from "@/hooks/useINFTRegistry";
 import { use0GStorage } from "@/hooks/use0GStorage";
 import { injectedConnector } from "@/lib/wagmi";
+import { Providers } from "@/lib/providers";
 
 type Step = "basics" | "config" | "script" | "review";
 const STEP_ORDER: Step[] = ["basics", "config", "script", "review"];
@@ -40,6 +41,14 @@ const DOMAINS = ["Phytochemistry", "Genomics", "Materials Science", "Environment
 const FORMATS = ["csv", "json", "tsv", "txt", "fasta", "h5"];
 
 export default function CreatorPage() {
+  return (
+    <Providers>
+      <CreatorPageContent />
+    </Providers>
+  );
+}
+
+function CreatorPageContent() {
   const { address, isConnected } = useAccount();
   const { connect } = useConnect();
   const { mint, isPending: isMintPending, isConfirming, isSuccess, txHash, error: mintError } = useMintINFT();

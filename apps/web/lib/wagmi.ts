@@ -7,6 +7,7 @@ export const injectedConnector = browserInjected();
 export const wagmiConfig = createConfig({
   chains: [ogTestnet],
   connectors: [injectedConnector],
+  ssr: true,
   transports: {
     [ogTestnet.id]: http(),
   },

@@ -9,3 +9,6 @@ coverage
 *.log
 *.tsbuildinfo
 .DS_Store
+
+.vercel
+apps/web/out

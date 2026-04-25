@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  output: "export",
+  trailingSlash: true,
   transpilePackages: ["@kingsvarmo/shared"],
   webpack: (config, { isServer, webpack }) => {
     config.resolve.fallback = { 

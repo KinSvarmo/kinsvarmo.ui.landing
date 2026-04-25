@@ -1,167 +1,288 @@
 import Link from "next/link";
-import { seededAgents } from "@kingsvarmo/shared";
 
-const steps = [
+const workflow = [
   {
-    icon: "🔬",
-    title: "Researchers Mint",
-    desc: "Scientists publish analysis logic as encrypted iNFTs on 0G, protecting their IP while monetizing it.",
+    title: "Researchers mint agents",
+    copy: "Scientific logic is encrypted, packaged with accepted formats and minted as an ERC-7857 iNFT on 0G.",
   },
   {
-    icon: "📤",
-    title: "Users Upload",
-    desc: "Upload any compatible dataset and get an instant cost quote in 0G token.",
+    title: "Users submit datasets",
+    copy: "A user chooses the right agent, uploads compatible data, reviews cost and pays once in OG token.",
   },
   {
-    icon: "🤖",
-    title: "Swarm Runs",
-    desc: "Planner, Analyzer, Critic and Reporter agents coordinate over Gensyn AXL in real time.",
-  },
-  {
-    icon: "📄",
-    title: "Results Delivered",
-    desc: "A structured scientific report with confidence scores and 0G provenance references.",
+    title: "The network returns results",
+    copy: "0G Compute runs the analysis, AXL coordinates agent messages, and KeeperHub records reliable execution state.",
   },
 ];
 
-const sponsors = [
-  { name: "0G", color: "var(--teal)",   badge: "badge-teal",   desc: "Storage · Compute · Chain" },
-  { name: "Gensyn AXL", color: "#a78bfa", badge: "badge-violet", desc: "Agent Communication" },
-  { name: "KeeperHub",  color: "#93c5fd", badge: "badge-blue",   desc: "Execution Orchestration" },
+const networkLayers = [
+  { label: "0G Chain", value: "iNFT ownership, payment receipts and execution references" },
+  { label: "0G Storage", value: "dataset and intelligence references for reproducible runs" },
+  { label: "0G Compute", value: "private runtime for scientific analysis logic" },
+  { label: "Gensyn AXL", value: "planner, analyzer, critic and reporter coordination" },
+  { label: "KeeperHub", value: "trusted automation for onchain job execution" },
+];
+
+const featuredAgents = [
+  {
+    name: "Phytochemistry Insight",
+    domain: "Plant compounds",
+    price: "0.25 OG",
+    formats: "CSV, TSV",
+    copy: "Screens alkaloid datasets for known patterns and confidence bands.",
+  },
+  {
+    name: "Genomics Variant Scout",
+    domain: "Sequence analysis",
+    price: "0.42 OG",
+    formats: "FASTA, JSON",
+    copy: "Flags variants, annotations and review targets for lab teams.",
+  },
+  {
+    name: "Materials Stability Lab",
+    domain: "Materials science",
+    price: "0.36 OG",
+    formats: "CSV, H5",
+    copy: "Evaluates experiment tables for stability and anomaly signals.",
+  },
+];
+
+const researcherSignals = [
+  "Publish analysis IP without exposing the underlying method",
+  "Earn per run through tokenized access instead of consulting bottlenecks",
+  "Define formats, domain scope, pricing and provenance metadata",
+];
+
+const userSignals = [
+  "Find domain-specific agents instead of adapting generic AI tools",
+  "Upload data, approve a single payment and follow job status",
+  "Receive structured results with provenance and execution context",
+];
+
+const runLog = [
+  "dataset.csv -> 0G Storage reference created",
+  "payment receipt -> 0G Chain confirmed",
+  "planner -> analyzer -> critic -> reporter via AXL",
+  "KeeperHub -> result provenance finalized",
 ];
 
 export default function HomePage() {
-  const [agent] = seededAgents;
-
-  if (!agent) {
-    return null;
-  }
-
   return (
-    <>
-      {/* ── Hero ── */}
-      <section style={{ position: "relative", overflow: "hidden", padding: "100px 0 80px" }}>
-        <div className="hero-gradient" />
-        <div className="grid-overlay" />
-        <div className="container" style={{ position: "relative", zIndex: 1 }}>
-          {/* Sponsor badges */}
-          <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 32 }}>
-            {sponsors.map((s) => (
-              <span key={s.name} className={`badge ${s.badge}`}>
-                {s.name}
-              </span>
-            ))}
-          </div>
+    <div className="landing-shell">
+      <section className="landing-hero">
+        <div className="landing-grid" />
+        <div className="landing-beam landing-beam-left" />
+        <div className="landing-beam landing-beam-right" />
 
-          <h1 style={{ fontSize: "clamp(3rem, 7vw, 5.5rem)", marginBottom: 24, maxWidth: 860 }}>
-            Scientific Agents<br />as Private{" "}
-            <span style={{ color: "var(--teal)" }}>iNFTs</span>
-          </h1>
+        <div className="container landing-hero-inner">
+          <div className="landing-copy">
+            <div className="landing-kicker">
+              <span className="landing-live-dot" />
+              Scientific agent marketplace on 0G
+            </div>
 
-          <p style={{ fontSize: "1.2rem", color: "var(--text-2)", maxWidth: 600, lineHeight: 1.6, marginBottom: 40 }}>
-            Researchers publish encrypted analysis agents on&nbsp;0G. Users pay in 0G token,
-            trigger the swarm, and receive auditable scientific results.
-          </p>
+            <h1>Encrypted AI agents for real scientific datasets.</h1>
+            <p className="landing-lede">
+              KinSvarmo is a marketplace where researchers mint private scientific
+              agents as iNFTs and users pay in OG token to run auditable analysis
+              through 0G Compute, Gensyn AXL and KeeperHub.
+            </p>
 
-          <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-            <Link href="/agents" className="btn btn-primary btn-lg">
-              Browse Agents →
-            </Link>
-            <Link href="/creator" className="btn btn-secondary btn-lg">
-              Mint your iNFT
-            </Link>
-          </div>
+            <div className="landing-actions">
+              <Link href="/agents" className="btn btn-primary btn-lg">
+                Explore Marketplace
+              </Link>
+              <Link href="/creator" className="btn btn-secondary btn-lg">
+                Mint an Agent
+              </Link>
+            </div>
 
-          {/* Live agent preview card */}
-          <div className="glass" style={{ marginTop: 64, padding: 24, maxWidth: 480, display: "flex", gap: 16, alignItems: "flex-start" }}>
-            <div className="agent-avatar">🌿</div>
-            <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
-                <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 600, fontSize: "0.98rem" }}>
-                  {agent.name}
-                </span>
-                <span className="badge badge-teal" style={{ fontSize: "0.7rem" }}>Published</span>
+            <div className="landing-proofline" aria-label="Core value pillars">
+              <div>
+                <strong>Private logic</strong>
+                <span>Researchers keep scientific methods encrypted.</span>
               </div>
-              <p style={{ fontSize: "0.83rem", color: "var(--text-2)", marginBottom: 12, lineHeight: 1.5 }}>
-                {agent.description}
-              </p>
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                <span style={{ fontSize: "0.82rem", color: "var(--text-3)" }}>
-                  by {agent.creatorName}
-                </span>
-                <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.9rem", color: "var(--teal)", fontWeight: 700 }}>
-                  {agent.priceIn0G} OG
-                </span>
+              <div>
+                <strong>Paid runs</strong>
+                <span>Users access agents per dataset with OG token.</span>
+              </div>
+              <div>
+                <strong>Visible provenance</strong>
+                <span>Results link back to storage, compute and execution state.</span>
               </div>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* ── Sponsor section ── */}
-      <section className="section-sm" style={{ borderTop: "1px solid var(--border)", borderBottom: "1px solid var(--border)" }}>
-        <div className="container">
-          <p className="eyebrow" style={{ textAlign: "center", marginBottom: 24 }}>Powered by</p>
-          <div style={{ display: "flex", justifyContent: "center", gap: 48, flexWrap: "wrap" }}>
-            {sponsors.map((s) => (
-              <div key={s.name} style={{ textAlign: "center" }}>
-                <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: "1.1rem", color: s.color, marginBottom: 4 }}>
-                  {s.name}
-                </div>
-                <div style={{ fontSize: "0.78rem", color: "var(--text-3)" }}>{s.desc}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+          <aside className="hero-console" aria-label="KinSvarmo run preview">
+            <div className="console-topbar">
+              <span />
+              <span />
+              <span />
+              <strong>run.axl/0482</strong>
+            </div>
 
-      {/* ── How it works ── */}
-      <section className="section">
-        <div className="container">
-          <p className="eyebrow" style={{ marginBottom: 12 }}>How it works</p>
-          <h2 style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)", marginBottom: 48 }}>
-            Four steps to auditable science
-          </h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 20 }}>
-            {steps.map((step, i) => (
-              <div key={i} className="glass" style={{ padding: 28 }}>
-                <div style={{ fontSize: "2rem", marginBottom: 16 }}>{step.icon}</div>
-                <div style={{ fontSize: "0.7rem", color: "var(--teal)", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 8 }}>
-                  Step {i + 1}
-                </div>
-                <h3 style={{ fontSize: "1rem", marginBottom: 10, fontFamily: "'Space Grotesk', sans-serif" }}>
-                  {step.title}
-                </h3>
-                <p style={{ fontSize: "0.85rem", color: "var(--text-2)", lineHeight: 1.6 }}>
-                  {step.desc}
+            <div className="agent-preview">
+              <div className="agent-sigil">KS</div>
+              <div>
+                <p className="agent-status">Encrypted agent selected</p>
+                <h2>Phytochemistry Insight Agent</h2>
+                <p>
+                  Screens compound tables for alkaloid signatures, confidence
+                  bands and research-ready observations.
                 </p>
               </div>
+            </div>
+
+            <div className="landing-run-card">
+              <div>
+                <span>Dataset</span>
+                <strong>alkaloid-sample.csv</strong>
+              </div>
+              <div>
+                <span>Price</span>
+                <strong>0.25 OG</strong>
+              </div>
+              <div>
+                <span>Status</span>
+                <strong>AXL consensus</strong>
+              </div>
+            </div>
+
+            <div className="landing-terminal" aria-label="Execution log">
+              {runLog.map((line, index) => (
+                <div key={line}>
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  {line}
+                </div>
+              ))}
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section className="landing-band">
+        <div className="container landing-band-inner">
+          {networkLayers.map((layer) => (
+            <div key={layer.label}>
+              <strong>{layer.label}</strong>
+              <span>{layer.value}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="section landing-section">
+        <div className="container split-section">
+          <div>
+            <p className="eyebrow">What KinSvarmo is</p>
+            <h2>A scientific marketplace where expertise becomes runnable infrastructure.</h2>
+          </div>
+          <p>
+            Instead of selling static reports or exposing raw prompts, researchers
+            publish specialized agents with encrypted analysis logic. Users bring
+            datasets, pay for exactly the run they need, and receive structured
+            outputs with an execution trail that can be inspected after the fact.
+          </p>
+        </div>
+      </section>
+
+      <section className="section landing-section">
+        <div className="container">
+          <div className="section-heading">
+            <p className="eyebrow">Marketplace preview</p>
+            <h2>Purpose-built agents for scientific workflows.</h2>
+          </div>
+
+          <div className="landing-agent-grid">
+            {featuredAgents.map((agent) => (
+              <article className="landing-agent-card" key={agent.name}>
+                <div className="landing-agent-card-top">
+                  <span>{agent.domain}</span>
+                  <strong>{agent.price}</strong>
+                </div>
+                <h3>{agent.name}</h3>
+                <p>{agent.copy}</p>
+                <div className="landing-agent-meta">
+                  <span>{agent.formats}</span>
+                  <span>0G indexed</span>
+                </div>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── CTA ── */}
-      <section className="section-sm">
-        <div className="container" style={{ textAlign: "center" }}>
-          <div className="glass-lg" style={{ padding: "56px 32px", position: "relative", overflow: "hidden" }}>
-            <div className="hero-gradient" />
-            <div style={{ position: "relative", zIndex: 1 }}>
-              <p className="eyebrow" style={{ marginBottom: 16 }}>Start now</p>
-              <h2 style={{ fontSize: "clamp(1.6rem, 4vw, 2.4rem)", marginBottom: 16 }}>
-                Ready to run private analysis on 0G?
-              </h2>
-              <p style={{ color: "var(--text-2)", marginBottom: 32, maxWidth: 480, margin: "0 auto 32px" }}>
-                Connect your wallet, browse agents, and launch your first analysis in minutes.
-              </p>
-              <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
-                <Link href="/agents" className="btn btn-primary btn-lg">Browse Agents</Link>
-                <Link href="/creator" className="btn btn-secondary btn-lg">Publish an Agent</Link>
-              </div>
-            </div>
+      <section className="section landing-section">
+        <div className="container">
+          <div className="section-heading">
+            <p className="eyebrow">How it works</p>
+            <h2>Mint agent, upload data, pay once, get results.</h2>
+          </div>
+
+          <div className="workflow-grid workflow-grid-three">
+            {workflow.map((step, index) => (
+              <article className="workflow-card" key={step.title}>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <h3>{step.title}</h3>
+                <p>{step.copy}</p>
+              </article>
+            ))}
           </div>
         </div>
       </section>
-    </>
+
+      <section className="section landing-section">
+        <div className="container actor-grid">
+          <article className="actor-panel">
+            <p className="eyebrow">For Researchers</p>
+            <h2>Turn private scientific methods into paid agents.</h2>
+            <p>
+              Mint an iNFT that carries metadata, accepted input formats, price
+              per run and encrypted analysis logic.
+            </p>
+            <ul>
+              {researcherSignals.map((signal) => (
+                <li key={signal}>{signal}</li>
+              ))}
+            </ul>
+          </article>
+
+          <article className="actor-panel">
+            <p className="eyebrow">For Users</p>
+            <h2>Run expert analysis without rebuilding the pipeline.</h2>
+            <p>
+              Choose an agent, upload a dataset and follow the execution trail
+              until a structured result is ready.
+            </p>
+            <ul>
+              {userSignals.map((signal) => (
+                <li key={signal}>{signal}</li>
+              ))}
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section className="section-sm landing-section">
+        <div className="container landing-cta">
+          <div>
+            <p className="eyebrow">Ready for the demo path</p>
+            <h2>Start in the marketplace, then run the full scientific workflow.</h2>
+            <p>
+              Browse seeded agents, connect a wallet, upload demo data and trace
+              the result through storage, compute, AXL coordination and KeeperHub.
+            </p>
+          </div>
+          <div className="landing-cta-actions">
+            <Link href="/agents" className="btn btn-primary btn-lg">
+              Open Marketplace
+            </Link>
+            <Link href="/creator" className="btn btn-secondary btn-lg">
+              Publish Agent
+            </Link>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }
