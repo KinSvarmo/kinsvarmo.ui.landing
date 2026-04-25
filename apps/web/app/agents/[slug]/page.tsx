@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback, useEffect } from "react";
+import { use, useState, useRef, useCallback, useEffect } from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { useAccount, useConnect, useBalance } from "wagmi";
@@ -8,7 +8,9 @@ import { injected } from "wagmi/connectors";
 import { seededAgents } from "@kingsvarmo/shared";
 import { useCreateJob } from "@/hooks/useAnalysisEscrow";
 import { ogTestnet } from "@/lib/chain";
-import { parseEther } from "viem";
+import { formatUnits, parseEther } from "viem";
+
+export const dynamic = "force-dynamic";
 
 type Step = "upload" | "validate" | "review" | "confirm";
 
@@ -69,8 +71,9 @@ function StepBar({ current }: { current: Step }) {
   );
 }
 
-export default function AgentRunPage({ params }: { params: { slug: string } }) {
-  const agent = seededAgents.find((a) => a.slug === params.slug);
+export default function AgentRunPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = use(params);
+  const agent = seededAgents.find((a) => a.slug === slug);
   if (!agent) return notFound();
 
   const [step, setStep] = useState<Step>("upload");
@@ -401,7 +404,7 @@ export default function AgentRunPage({ params }: { params: { slug: string } }) {
                     <div className="cost-row">
                       <span className="label">Balance</span>
                       <span className="value" style={{ color: hasSufficientBalance ? "var(--teal)" : "#f87171" }}>
-                        {balance ? `${parseFloat(balance.formatted).toFixed(4)} OG` : "—"}
+                        {balance ? `${parseFloat(formatUnits(balance.value, balance.decimals)).toFixed(4)} OG` : "—"}
                         {!hasSufficientBalance && " (insufficient)"}
                       </span>
                     </div>

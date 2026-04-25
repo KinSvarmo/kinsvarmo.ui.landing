@@ -7,6 +7,8 @@ import { injected } from "wagmi/connectors";
 import { keccak256, toBytes } from "viem";
 import { useMintINFT } from "@/hooks/useINFTRegistry";
 
+export const dynamic = "force-dynamic";
+
 type Step = "basics" | "config" | "script" | "review";
 const STEP_ORDER: Step[] = ["basics", "config", "script", "review"];
 const STEP_LABELS: Record<Step, string> = {
@@ -96,6 +98,16 @@ export default function CreatorPage() {
     if (!isConnected) { connect({ connector: injected() }); return; }
     // mint(address!, encryptedURI, metadataHash);
     // Stub: contracts not yet deployed
+  };
+
+  const goBack = () => {
+    const previousStep = STEP_ORDER[STEP_ORDER.indexOf(step) - 1];
+    if (previousStep) setStep(previousStep);
+  };
+
+  const goNext = () => {
+    const nextStep = STEP_ORDER[STEP_ORDER.indexOf(step) + 1];
+    if (nextStep) setStep(nextStep);
   };
 
   if (isSuccess && txHash) {
@@ -427,7 +439,7 @@ export default function CreatorPage() {
             <button
               className="btn btn-ghost"
               disabled={step === "basics"}
-              onClick={() => setStep(STEP_ORDER[STEP_ORDER.indexOf(step) - 1])}
+              onClick={goBack}
             >
               ← Back
             </button>
@@ -435,7 +447,7 @@ export default function CreatorPage() {
               <button
                 className="btn btn-primary"
                 disabled={!canProceed[step]}
-                onClick={() => setStep(STEP_ORDER[STEP_ORDER.indexOf(step) + 1])}
+                onClick={goNext}
               >
                 Continue →
               </button>

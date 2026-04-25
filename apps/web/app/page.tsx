@@ -1,163 +1,213 @@
 import Link from "next/link";
 import { seededAgents } from "@kingsvarmo/shared";
 
-const steps = [
+const styles = [
+  { id: "neon-green", name: "Neon Green", tone: "black + green", accent: "#39ff88" },
+  { id: "neon-blue", name: "Neon Blue", tone: "black + blue", accent: "#38bdf8" },
+  { id: "classic", name: "Classic", tone: "bright + editorial", accent: "#1d4ed8" },
+  { id: "clinical", name: "Clinical Glass", tone: "my suggestion", accent: "#14b8a6" },
+] as const;
+
+const sponsors = [
+  { name: "0G", role: "Storage, compute and chain" },
+  { name: "Gensyn AXL", role: "Agent communication" },
+  { name: "KeeperHub", role: "Workflow orchestration" },
+];
+
+const workflow = [
   {
-    icon: "🔬",
-    title: "Researchers Mint",
-    desc: "Scientists publish analysis logic as encrypted iNFTs on 0G, protecting their IP while monetizing it.",
+    title: "Private agent minted",
+    copy: "Researchers publish encrypted analysis logic as an iNFT-style asset linked to 0G.",
   },
   {
-    icon: "📤",
-    title: "Users Upload",
-    desc: "Upload any compatible dataset and get an instant cost quote in 0G token.",
+    title: "Dataset submitted",
+    copy: "Users choose an agent, upload a compatible file and authorize a paid run in OG token.",
   },
   {
-    icon: "🤖",
-    title: "Swarm Runs",
-    desc: "Planner, Analyzer, Critic and Reporter agents coordinate over Gensyn AXL in real time.",
+    title: "Swarm executes",
+    copy: "Planner, analyzer, critic and reporter modules coordinate over AXL with visible state.",
   },
   {
-    icon: "📄",
-    title: "Results Delivered",
-    desc: "A structured scientific report with confidence scores and 0G provenance references.",
+    title: "Auditable report",
+    copy: "The user receives a structured scientific result with confidence and provenance references.",
   },
 ];
 
-const sponsors = [
-  { name: "0G", color: "var(--teal)",   badge: "badge-teal",   desc: "Storage · Compute · Chain" },
-  { name: "Gensyn AXL", color: "#a78bfa", badge: "badge-violet", desc: "Agent Communication" },
-  { name: "KeeperHub",  color: "#93c5fd", badge: "badge-blue",   desc: "Execution Orchestration" },
+const metrics = [
+  { label: "Demo path", value: "1 golden flow" },
+  { label: "Runtime target", value: "90 sec" },
+  { label: "Seed agent", value: "Phytochemistry" },
 ];
 
 export default function HomePage() {
-  const [agent] = seededAgents;
+  const agent = seededAgents[0];
+  if (!agent) return null;
 
   return (
-    <>
-      {/* ── Hero ── */}
-      <section style={{ position: "relative", overflow: "hidden", padding: "100px 0 80px" }}>
-        <div className="hero-gradient" />
-        <div className="grid-overlay" />
-        <div className="container" style={{ position: "relative", zIndex: 1 }}>
-          {/* Sponsor badges */}
-          <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 32 }}>
-            {sponsors.map((s) => (
-              <span key={s.name} className={`badge ${s.badge}`}>
-                {s.name}
-              </span>
-            ))}
+    <div className="landing-shell">
+      <section className="landing-hero">
+        <div className="landing-grid" />
+
+        <div className="container landing-hero-inner">
+          <div className="landing-copy">
+            <div className="landing-kicker">
+              <span className="landing-live-dot" />
+              0G scientific agent marketplace
+            </div>
+
+            <h1>KinSvarmo</h1>
+            <p className="landing-lede">
+              Publish private scientific analysis agents as iNFT-backed assets,
+              then run auditable dataset workflows coordinated by specialized AI
+              modules.
+            </p>
+
+            <div className="landing-actions">
+              <Link href="/agents" className="btn btn-primary btn-lg">
+                Browse agents
+              </Link>
+              <Link href="/creator" className="btn btn-secondary btn-lg">
+                Mint an iNFT
+              </Link>
+            </div>
+
+            <div className="style-switcher" aria-label="Landing visual style selector">
+              {styles.map((item) => (
+                <div className="style-option" key={item.id}>
+                  <input
+                    id={`style-${item.id}`}
+                    type="radio"
+                    name="landing-style"
+                    defaultChecked={item.id === "neon-green"}
+                  />
+                  <label htmlFor={`style-${item.id}`} className="style-chip">
+                    <span style={{ background: item.accent }} />
+                    <strong>{item.name}</strong>
+                    <small>{item.tone}</small>
+                  </label>
+                </div>
+              ))}
+            </div>
           </div>
 
-          <h1 style={{ fontSize: "clamp(3rem, 7vw, 5.5rem)", marginBottom: 24, maxWidth: 860 }}>
-            Scientific Agents<br />as Private{" "}
-            <span style={{ color: "var(--teal)" }}>iNFTs</span>
-          </h1>
+          <aside className="hero-console" aria-label="Featured agent preview">
+            <div className="console-topbar">
+              <span />
+              <span />
+              <span />
+              <strong>Style lab</strong>
+            </div>
 
-          <p style={{ fontSize: "1.2rem", color: "var(--text-2)", maxWidth: 600, lineHeight: 1.6, marginBottom: 40 }}>
-            Researchers publish encrypted analysis agents on&nbsp;0G. Users pay in 0G token,
-            trigger the swarm, and receive auditable scientific results.
+            <div className="agent-preview">
+              <div className="agent-sigil">KS</div>
+              <div>
+                <p className="agent-status">Published agent</p>
+                <h2>{agent.name}</h2>
+                <p>{agent.description}</p>
+              </div>
+            </div>
+
+            <div className="pipeline">
+              {["Planner", "Analyzer", "Critic", "Reporter"].map((name, index) => (
+                <div className="pipeline-row" key={name}>
+                  <span>{name}</span>
+                  <div>
+                    <i style={{ width: `${52 + index * 14}%` }} />
+                  </div>
+                  <strong>{index === 3 ? "ready" : "sync"}</strong>
+                </div>
+              ))}
+            </div>
+
+            <div className="console-footer">
+              <div>
+                <span>Price</span>
+                <strong>{agent.priceIn0G} OG</strong>
+              </div>
+              <div>
+                <span>Formats</span>
+                <strong>{agent.supportedFormats.join(", ")}</strong>
+              </div>
+              <div>
+                <span>Provenance</span>
+                <strong>0G linked</strong>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section className="landing-band">
+        <div className="container sponsor-strip">
+          {sponsors.map((sponsor) => (
+            <div key={sponsor.name}>
+              <strong>{sponsor.name}</strong>
+              <span>{sponsor.role}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="section landing-section">
+        <div className="container split-section">
+          <div>
+            <p className="eyebrow">What this repo is building</p>
+            <h2>One reliable demo path for private scientific AI runs.</h2>
+          </div>
+          <p>
+            The current codebase is a scaffold for a marketplace, API service,
+            shared domain contracts, sponsor adapters and demo documentation. The
+            MVP centers on one seeded agent, upload validation, visible AXL
+            communication, KeeperHub execution state and 0G references.
           </p>
-
-          <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-            <Link href="/agents" className="btn btn-primary btn-lg">
-              Browse Agents →
-            </Link>
-            <Link href="/creator" className="btn btn-secondary btn-lg">
-              Mint your iNFT
-            </Link>
-          </div>
-
-          {/* Live agent preview card */}
-          <div className="glass" style={{ marginTop: 64, padding: 24, maxWidth: 480, display: "flex", gap: 16, alignItems: "flex-start" }}>
-            <div className="agent-avatar">🌿</div>
-            <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
-                <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 600, fontSize: "0.98rem" }}>
-                  {agent.name}
-                </span>
-                <span className="badge badge-teal" style={{ fontSize: "0.7rem" }}>Published</span>
-              </div>
-              <p style={{ fontSize: "0.83rem", color: "var(--text-2)", marginBottom: 12, lineHeight: 1.5 }}>
-                {agent.description}
-              </p>
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                <span style={{ fontSize: "0.82rem", color: "var(--text-3)" }}>
-                  by {agent.creatorName}
-                </span>
-                <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.9rem", color: "var(--teal)", fontWeight: 700 }}>
-                  {agent.priceIn0G} OG
-                </span>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 
-      {/* ── Sponsor section ── */}
-      <section className="section-sm" style={{ borderTop: "1px solid var(--border)", borderBottom: "1px solid var(--border)" }}>
+      <section className="section-sm landing-section">
+        <div className="container metrics-row">
+          {metrics.map((metric) => (
+            <div className="metric-tile" key={metric.label}>
+              <span>{metric.label}</span>
+              <strong>{metric.value}</strong>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="section landing-section">
         <div className="container">
-          <p className="eyebrow" style={{ textAlign: "center", marginBottom: 24 }}>Powered by</p>
-          <div style={{ display: "flex", justifyContent: "center", gap: 48, flexWrap: "wrap" }}>
-            {sponsors.map((s) => (
-              <div key={s.name} style={{ textAlign: "center" }}>
-                <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: "1.1rem", color: s.color, marginBottom: 4 }}>
-                  {s.name}
-                </div>
-                <div style={{ fontSize: "0.78rem", color: "var(--text-3)" }}>{s.desc}</div>
-              </div>
+          <div className="section-heading">
+            <p className="eyebrow">Workflow</p>
+            <h2>From encrypted intelligence to reportable results.</h2>
+          </div>
+
+          <div className="workflow-grid">
+            {workflow.map((step, index) => (
+              <article className="workflow-card" key={step.title}>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <h3>{step.title}</h3>
+                <p>{step.copy}</p>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── How it works ── */}
-      <section className="section">
-        <div className="container">
-          <p className="eyebrow" style={{ marginBottom: 12 }}>How it works</p>
-          <h2 style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)", marginBottom: 48 }}>
-            Four steps to auditable science
-          </h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 20 }}>
-            {steps.map((step, i) => (
-              <div key={i} className="glass" style={{ padding: 28 }}>
-                <div style={{ fontSize: "2rem", marginBottom: 16 }}>{step.icon}</div>
-                <div style={{ fontSize: "0.7rem", color: "var(--teal)", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 8 }}>
-                  Step {i + 1}
-                </div>
-                <h3 style={{ fontSize: "1rem", marginBottom: 10, fontFamily: "'Space Grotesk', sans-serif" }}>
-                  {step.title}
-                </h3>
-                <p style={{ fontSize: "0.85rem", color: "var(--text-2)", lineHeight: 1.6 }}>
-                  {step.desc}
-                </p>
-              </div>
-            ))}
+      <section className="section-sm landing-section">
+        <div className="container landing-cta">
+          <div>
+            <p className="eyebrow">Frontend direction</p>
+            <h2>Style system ready for team review.</h2>
+            <p>
+              The switcher lets the team compare two neon directions, a classic
+              version and a calmer scientific interface without changing routes.
+            </p>
           </div>
+          <Link href="/agents" className="btn btn-primary btn-lg">
+            Open marketplace
+          </Link>
         </div>
       </section>
-
-      {/* ── CTA ── */}
-      <section className="section-sm">
-        <div className="container" style={{ textAlign: "center" }}>
-          <div className="glass-lg" style={{ padding: "56px 32px", position: "relative", overflow: "hidden" }}>
-            <div className="hero-gradient" />
-            <div style={{ position: "relative", zIndex: 1 }}>
-              <p className="eyebrow" style={{ marginBottom: 16 }}>Start now</p>
-              <h2 style={{ fontSize: "clamp(1.6rem, 4vw, 2.4rem)", marginBottom: 16 }}>
-                Ready to run private analysis on 0G?
-              </h2>
-              <p style={{ color: "var(--text-2)", marginBottom: 32, maxWidth: 480, margin: "0 auto 32px" }}>
-                Connect your wallet, browse agents, and launch your first analysis in minutes.
-              </p>
-              <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
-                <Link href="/agents" className="btn btn-primary btn-lg">Browse Agents</Link>
-                <Link href="/creator" className="btn btn-secondary btn-lg">Publish an Agent</Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </>
+    </div>
   );
 }
