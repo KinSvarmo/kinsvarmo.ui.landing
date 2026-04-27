@@ -12,3 +12,4 @@ coverage
 
 .vercel
 apps/web/out
+*.tsbuildinfo

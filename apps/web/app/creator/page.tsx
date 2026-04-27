@@ -461,11 +461,11 @@ function CreatorPageContent() {
               ← Back
             </button>
             {step !== "review" && (
-              <button
-                className="btn btn-primary"
-                disabled={!canProceed[step]}
-                onClick={goForward}
-              >
+                <button
+                  className="btn btn-primary"
+                  disabled={!canProceed[step]}
+                  onClick={goForward}
+                >
                 Continue →
               </button>
             )}
