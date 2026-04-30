@@ -43,7 +43,7 @@ export default function HomePage() {
             <Link className="landing-button" href="https://kinsvarmo-docs.vercel.app/" target="_blank">
               Docs
             </Link>
-            <Link className="landing-button" href="https://kinsvarmo.vercel.app/" target="_blank">
+            <Link className="landing-button" href="https://google.com/" target="_blank">
               App
             </Link>
           </div>
