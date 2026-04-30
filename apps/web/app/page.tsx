@@ -1,286 +1,98 @@
 import Link from "next/link";
 
-const workflow = [
-  {
-    title: "Researchers mint agents",
-    copy: "Scientific logic is encrypted, packaged with accepted formats and minted as an ERC-7857 iNFT on 0G.",
-  },
-  {
-    title: "Users submit datasets",
-    copy: "A user chooses the right agent, uploads compatible data, reviews cost and pays once in OG token.",
-  },
-  {
-    title: "The network returns results",
-    copy: "0G Compute runs the analysis, AXL coordinates agent messages, and KeeperHub records reliable execution state.",
-  },
+const reportItems = ["job ID", "execution trace", "module messages", "compute proof", "provenance"];
+
+const useCases = [
+  "scientific dataset review",
+  "classroom lab submissions",
+  "legal document review",
+  "grant proposal screening",
+  "compliance checklist review",
+  "financial report QA",
+  "research reproducibility checks",
+  "clinical trial metadata review",
+  "manufacturing experiment audits",
 ];
 
-const networkLayers = [
-  { label: "0G Chain", value: "iNFT ownership, payment receipts and execution references" },
-  { label: "0G Storage", value: "dataset and intelligence references for reproducible runs" },
-  { label: "0G Compute", value: "private runtime for scientific analysis logic" },
-  { label: "Gensyn AXL", value: "planner, analyzer, critic and reporter coordination" },
-  { label: "KeeperHub", value: "trusted automation for onchain job execution" },
-];
-
-const featuredAgents = [
-  {
-    name: "Phytochemistry Insight",
-    domain: "Plant compounds",
-    price: "0.25 OG",
-    formats: "CSV, TSV",
-    copy: "Screens alkaloid datasets for known patterns and confidence bands.",
-  },
-  {
-    name: "Genomics Variant Scout",
-    domain: "Sequence analysis",
-    price: "0.42 OG",
-    formats: "FASTA, JSON",
-    copy: "Flags variants, annotations and review targets for lab teams.",
-  },
-  {
-    name: "Materials Stability Lab",
-    domain: "Materials science",
-    price: "0.36 OG",
-    formats: "CSV, H5",
-    copy: "Evaluates experiment tables for stability and anomaly signals.",
-  },
-];
-
-const researcherSignals = [
-  "Publish analysis IP without exposing the underlying method",
-  "Earn per run through tokenized access instead of consulting bottlenecks",
-  "Define formats, domain scope, pricing and provenance metadata",
-];
-
-const userSignals = [
-  "Find domain-specific agents instead of adapting generic AI tools",
-  "Upload data, approve a single payment and follow job status",
-  "Receive structured results with provenance and execution context",
-];
-
-const runLog = [
-  "dataset.csv -> 0G Storage reference created",
-  "payment receipt -> 0G Chain confirmed",
-  "planner -> analyzer -> critic -> reporter via AXL",
-  "KeeperHub -> result provenance finalized",
-];
+function GitHubIcon() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+      <path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.52 2.87 8.35 6.84 9.71.5.09.68-.22.68-.5v-1.77c-2.78.62-3.37-1.22-3.37-1.22-.45-1.19-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.9 1.57 2.35 1.12 2.92.85.09-.67.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05A9.3 9.3 0 0 1 12 7.06c.85 0 1.71.12 2.51.34 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9v2.7c0 .28.18.6.69.5A10.08 10.08 0 0 0 22 12.26C22 6.58 17.52 2 12 2Z" />
+    </svg>
+  );
+}
 
 export default function HomePage() {
   return (
     <div className="landing-shell">
       <section className="landing-hero">
-        <div className="landing-grid" />
-        <div className="landing-beam landing-beam-left" />
-        <div className="landing-beam landing-beam-right" />
-
         <div className="container landing-hero-inner">
-          <div className="landing-copy">
-            <div className="landing-kicker">
-              <span className="landing-live-dot" />
-              Scientific agent marketplace on 0G
-            </div>
-
-            <h1>Encrypted AI agents for real scientific datasets.</h1>
-            <p className="landing-lede">
-              KinSvarmo is a marketplace where researchers mint private scientific
-              agents as iNFTs and users pay in OG token to run auditable analysis
-              through 0G Compute, Gensyn AXL and KeeperHub.
-            </p>
-
-            <div className="landing-actions">
-              <Link href="/agents" className="btn btn-primary btn-lg">
-                Explore Marketplace
-              </Link>
-              <Link href="/creator" className="btn btn-secondary btn-lg">
-                Mint an Agent
-              </Link>
-            </div>
-
-            <div className="landing-proofline" aria-label="Core value pillars">
-              <div>
-                <strong>Private logic</strong>
-                <span>Researchers keep scientific methods encrypted.</span>
-              </div>
-              <div>
-                <strong>Paid runs</strong>
-                <span>Users access agents per dataset with OG token.</span>
-              </div>
-              <div>
-                <strong>Visible provenance</strong>
-                <span>Results link back to storage, compute and execution state.</span>
-              </div>
-            </div>
-          </div>
-
-          <aside className="hero-console" aria-label="KinSvarmo run preview">
-            <div className="console-topbar">
-              <span />
-              <span />
-              <span />
-              <strong>run.axl/0482</strong>
-            </div>
-
-            <div className="agent-preview">
-              <div className="agent-sigil">KS</div>
-              <div>
-                <p className="agent-status">Encrypted agent selected</p>
-                <h2>Phytochemistry Insight Agent</h2>
-                <p>
-                  Screens compound tables for alkaloid signatures, confidence
-                  bands and research-ready observations.
-                </p>
-              </div>
-            </div>
-
-            <div className="landing-run-card">
-              <div>
-                <span>Dataset</span>
-                <strong>alkaloid-sample.csv</strong>
-              </div>
-              <div>
-                <span>Price</span>
-                <strong>0.25 OG</strong>
-              </div>
-              <div>
-                <span>Status</span>
-                <strong>AXL consensus</strong>
-              </div>
-            </div>
-
-            <div className="landing-terminal" aria-label="Execution log">
-              {runLog.map((line, index) => (
-                <div key={line}>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                  {line}
-                </div>
-              ))}
-            </div>
-          </aside>
-        </div>
-      </section>
-
-      <section className="landing-band">
-        <div className="container landing-band-inner">
-          {networkLayers.map((layer) => (
-            <div key={layer.label}>
-              <strong>{layer.label}</strong>
-              <span>{layer.value}</span>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="section landing-section">
-        <div className="container split-section">
-          <div>
-            <p className="eyebrow">What KinSvarmo is</p>
-            <h2>A scientific marketplace where expertise becomes runnable infrastructure.</h2>
-          </div>
-          <p>
-            Instead of selling static reports or exposing raw prompts, researchers
-            publish specialized agents with encrypted analysis logic. Users bring
-            datasets, pay for exactly the run they need, and receive structured
-            outputs with an execution trail that can be inspected after the fact.
+          <p className="landing-kicker">Owned, paid, auditable agents</p>
+          <h1>KinSvarmo is a marketplace for traceable agent runs.</h1>
+          <p className="landing-lede">
+            Creators publish agents as iNFTs on 0G. Users run those agents on
+            private data. AXL coordinates the workflow, KeeperHub tracks execution,
+            and 0G Compute produces analysis with proof.
           </p>
-        </div>
-      </section>
 
-      <section className="section landing-section">
-        <div className="container">
-          <div className="section-heading">
-            <p className="eyebrow">Marketplace preview</p>
-            <h2>Purpose-built agents for scientific workflows.</h2>
-          </div>
-
-          <div className="landing-agent-grid">
-            {featuredAgents.map((agent) => (
-              <article className="landing-agent-card" key={agent.name}>
-                <div className="landing-agent-card-top">
-                  <span>{agent.domain}</span>
-                  <strong>{agent.price}</strong>
-                </div>
-                <h3>{agent.name}</h3>
-                <p>{agent.copy}</p>
-                <div className="landing-agent-meta">
-                  <span>{agent.formats}</span>
-                  <span>0G indexed</span>
-                </div>
-              </article>
-            ))}
+          <div className="landing-actions" aria-label="KinSvarmo links">
+            <Link className="landing-button landing-button-primary" href="https://github.com/KinSvarmo" target="_blank">
+              <GitHubIcon />
+              GitHub
+            </Link>
+            <Link className="landing-button" href="https://kinsvarmo-docs.vercel.app/" target="_blank">
+              Docs
+            </Link>
+            <Link className="landing-button" href="https://kinsvarmo.vercel.app/" target="_blank">
+              App
+            </Link>
           </div>
         </div>
       </section>
 
-      <section className="section landing-section">
-        <div className="container">
-          <div className="section-heading">
-            <p className="eyebrow">How it works</p>
-            <h2>Mint agent, upload data, pay once, get results.</h2>
-          </div>
-
-          <div className="workflow-grid workflow-grid-three">
-            {workflow.map((step, index) => (
-              <article className="workflow-card" key={step.title}>
-                <span>{String(index + 1).padStart(2, "0")}</span>
-                <h3>{step.title}</h3>
-                <p>{step.copy}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section landing-section">
-        <div className="container actor-grid">
-          <article className="actor-panel">
-            <p className="eyebrow">For Researchers</p>
-            <h2>Turn private scientific methods into paid agents.</h2>
-            <p>
-              Mint an iNFT that carries metadata, accepted input formats, price
-              per run and encrypted analysis logic.
-            </p>
-            <ul>
-              {researcherSignals.map((signal) => (
-                <li key={signal}>{signal}</li>
-              ))}
-            </ul>
-          </article>
-
-          <article className="actor-panel">
-            <p className="eyebrow">For Users</p>
-            <h2>Run expert analysis without rebuilding the pipeline.</h2>
-            <p>
-              Choose an agent, upload a dataset and follow the execution trail
-              until a structured result is ready.
-            </p>
-            <ul>
-              {userSignals.map((signal) => (
-                <li key={signal}>{signal}</li>
-              ))}
-            </ul>
-          </article>
-        </div>
-      </section>
-
-      <section className="section-sm landing-section">
-        <div className="container landing-cta">
+      <section className="landing-section">
+        <div className="container landing-two-column">
           <div>
-            <p className="eyebrow">Ready for the demo path</p>
-            <h2>Start in the marketplace, then run the full scientific workflow.</h2>
+            <p className="eyebrow">Core idea</p>
+            <h2>Useful agents with ownership, price, storage, and execution identity.</h2>
+          </div>
+          <div className="landing-copy-block">
             <p>
-              Browse seeded agents, connect a wallet, upload demo data and trace
-              the result through storage, compute, AXL coordination and KeeperHub.
+              A creator uploads an agent configuration, prompt, metadata, and
+              private knowledge package. That agent becomes an iNFT on 0G with an
+              owner, a price, a storage reference, and an execution identity.
+            </p>
+            <p>
+              A user chooses an agent, uploads data, pays for one run, and receives
+              a report. The output is more than a chatbot answer: it is connected
+              to the agent, payment, workflow, and compute execution.
             </p>
           </div>
-          <div className="landing-cta-actions">
-            <Link href="/agents" className="btn btn-primary btn-lg">
-              Open Marketplace
-            </Link>
-            <Link href="/creator" className="btn btn-secondary btn-lg">
-              Publish Agent
-            </Link>
+        </div>
+      </section>
+
+      <section className="landing-section landing-section-tight">
+        <div className="container landing-report">
+          <p className="eyebrow">The report includes</p>
+          <div className="landing-report-grid">
+            {reportItems.map((item) => (
+              <span key={item}>{item}</span>
+            ))}
           </div>
+        </div>
+      </section>
+
+      <section className="landing-section">
+        <div className="container landing-two-column">
+          <div>
+            <p className="eyebrow">General use cases</p>
+            <h2>Trusted agent workflows for private input and traceable results.</h2>
+          </div>
+          <ul className="landing-use-cases">
+            {useCases.map((useCase) => (
+              <li key={useCase}>{useCase}</li>
+            ))}
+          </ul>
         </div>
       </section>
     </div>

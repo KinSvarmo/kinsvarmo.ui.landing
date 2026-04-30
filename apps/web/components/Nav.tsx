@@ -6,6 +6,7 @@ import { WalletControls } from "@/components/WalletControls";
 
 export function Nav() {
   const pathname = usePathname();
+  const isLanding = pathname === "/";
   const links = [
     { href: "/agents", label: "Browse Agents" },
     { href: "/creator", label: "Mint iNFT" },
@@ -42,27 +43,31 @@ export function Nav() {
           KinSvarmo
         </Link>
 
-        <nav style={{ display: "flex", gap: 4, flex: 1 }}>
-          {links.map(({ href, label }) => (
-            <Link
-              key={href}
-              href={href}
-              style={{
-                padding: "6px 12px",
-                borderRadius: "var(--radius-sm)",
-                fontSize: "0.88rem",
-                fontWeight: 500,
-                color: pathname === href ? "var(--teal)" : "var(--text-2)",
-                background: pathname === href ? "var(--teal-dim)" : "transparent",
-                transition: "all 0.15s",
-              }}
-            >
-              {label}
-            </Link>
-          ))}
-        </nav>
+        {!isLanding && (
+          <>
+            <nav style={{ display: "flex", gap: 4, flex: 1 }}>
+              {links.map(({ href, label }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  style={{
+                    padding: "6px 12px",
+                    borderRadius: "var(--radius-sm)",
+                    fontSize: "0.88rem",
+                    fontWeight: 500,
+                    color: pathname === href ? "var(--teal)" : "var(--text-2)",
+                    background: pathname === href ? "var(--teal-dim)" : "transparent",
+                    transition: "all 0.15s",
+                  }}
+                >
+                  {label}
+                </Link>
+              ))}
+            </nav>
 
-        <WalletControls />
+            <WalletControls />
+          </>
+        )}
       </div>
     </header>
   );
